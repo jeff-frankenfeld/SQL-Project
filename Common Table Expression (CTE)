@@ -1,0 +1,41 @@
+-- This query pulls the top 5 customers from the top 10 cities within the top 10 countries containing the most customers.
+-- The output is the same as the subquery, but a CTE is more efficient with a lower cost
+
+-- top 10 countries
+WITH top_countries AS (
+    SELECT E.country
+    FROM customer B
+    JOIN address C ON B.address_id = C.address_id
+    JOIN city D ON C.city_id = D.city_id
+    JOIN country E ON D.country_id = E.country_id
+    GROUP BY E.country
+    ORDER BY COUNT(B.customer_id) DESC
+    LIMIT 10),
+-- top 10 cities
+top_cities AS (
+    SELECT D.city
+    FROM customer B
+    JOIN address C ON B.address_id = C.address_id
+    JOIN city D ON C.city_id = D.city_id
+    JOIN country E ON D.country_id = E.country_id
+    JOIN top_countries ON E.country = top_countries.country
+    GROUP BY D.city
+    ORDER BY COUNT(B.customer_id) DESC
+    LIMIT 10)
+-- top 5 customers
+    SELECT
+      A.customer_id,
+      B.first_name,
+      B.last_name,
+      D.city,
+      E.country,
+      SUM(A.amount) AS total_amount_paid
+FROM payment A
+JOIN customer B ON A.customer_id = B.customer_id
+JOIN address C ON B.address_id = C.address_id
+JOIN city D ON C.city_id = D.city_id
+JOIN country E ON D.country_id = E.country_id
+JOIN top_cities ON D.city = top_cities.city
+GROUP BY A.customer_id, B.first_name, B.last_name, D.city, E.country
+ORDER BY total_amount_paid DESC
+LIMIT 5;

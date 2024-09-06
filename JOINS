@@ -1,6 +1,6 @@
 -- This query pulls the total revenue for each movie category using inner joins from multiple tables within the database
 
-SELECT	
+SELECT
 	E.name AS movie_category,
 	SUM(A.amount) AS total_revenue
 FROM payment A

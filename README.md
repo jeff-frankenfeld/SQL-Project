@@ -9,7 +9,7 @@ While the focus is on the online video streaming industry, the skills and method
 - Which countries are Rockbuster customers based in?
 - Where are customers with a high lifetime value based?
 - Do sales figures vary between geographic regions?
-- ## Systems Used
+## Systems Used
 - PostgreSQL: Relational Database Management System (RDBMS) used to store and query the Rockbuster database
 - pgAdmin4: For managing PostgreSQL databases
 - Tableau Public: Platform for creating and sharing interactive data visualizations and dashboards

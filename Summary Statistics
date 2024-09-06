@@ -1,7 +1,6 @@
 -- The query below pulls descriptive statistics from the 'film' table
 -- Uses COUNT, MIN, MAX, AVG, and MODE functions
 -- A single inner join was used to connect the 'language_id' to 'language'
-
 SELECT	
 	COUNT(film_id) AS total_films,
 	MIN(release_year) AS min_release_year,
@@ -28,8 +27,7 @@ JOIN language B ON A.language_id = B.language_id;
 -- The query below pulls the descriptive statistics from multiple tables in the database
 -- Uses COUNT, DISTINCT, and CASE statements
 -- Multiple inner joins used
-
-SELECT		
+SELECT	
 	COUNT(DISTINCT CASE WHEN D.active = '1' THEN D.customer_id END)
 		AS active_customers,
 	COUNT(DISTINCT(G.country_id)) AS total_countries,
